@@ -1,5 +1,5 @@
 # WebServer
-1. mkdir build && make bin, 进入build执行cmake .. 
+1. mkdir build & bin, 进入build执行cmake .. 
 2. 在build下执行make, 生成可执行文件, 在bin目录下 
 3. 运行./main ip port, 其中ip, port分别代表ip地址和端口号, 例如./main 0.0.0.0 9999 
 4. 浏览器输入ip:port进行访问, 目前文件工作目录为webpath, 因此默认打开此目录下的详细内容<br>
