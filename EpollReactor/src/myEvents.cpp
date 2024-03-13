@@ -3,7 +3,7 @@
 extern const int maxConnectNums = 1024;
 extern const int maxBufferNums = 1024;
 
-myEvent::myEvent(int fd, void (*function)(int epfd, int fd, void * arg))
+myEvent::myEvent(int fd, void (*function)(int epfd, int fd, void *arg))
 {
     this->n = 0;
     this->buf = new char[maxBufferNums];
@@ -14,13 +14,13 @@ myEvent::myEvent(int fd, void (*function)(int epfd, int fd, void * arg))
 
 myEvent::~myEvent()
 {
-    delete [] this->buf;
+    delete[] this->buf;
 }
 
-void readData(int epfd, int fd, void * arg)
+void readData(int epfd, int fd, void *arg)
 {
     // 读取数据
-    myEvent * p_myEvent = (myEvent *)arg;
+    myEvent *p_myEvent = (myEvent *)arg;
     memset(p_myEvent->buf, '\0', maxBufferNums);
     p_myEvent->n = recv(fd, p_myEvent->buf, maxBufferNums, 0);
     if (p_myEvent->n <= 0)
@@ -54,10 +54,10 @@ void readData(int epfd, int fd, void * arg)
     }
 }
 
-void writrData(int epfd, int fd, void * arg)
+void writrData(int epfd, int fd, void *arg)
 {
     // 发送数据
-    myEvent * p_myEvent = (myEvent *)arg;
+    myEvent *p_myEvent = (myEvent *)arg;
     int n = send(fd, p_myEvent->buf, p_myEvent->n, 0);
     if (n <= 0)
     {
@@ -84,7 +84,7 @@ void writrData(int epfd, int fd, void * arg)
     }
 }
 
-void initAccept(int epfd, int fd, void * arg)
+void initAccept(int epfd, int fd, void *arg)
 {
     // 阻塞等待连接
     struct sockaddr_in client;
@@ -105,7 +105,7 @@ void initAccept(int epfd, int fd, void * arg)
 
     // 将该fd上树, 其监听事件为读事件
     struct epoll_event ep_event;
-    myEvent * p_myEvent = new myEvent(cfd, readData);
+    myEvent *p_myEvent = new myEvent(cfd, readData);
     ep_event.events = EPOLLIN;
     ep_event.data.ptr = p_myEvent;
 

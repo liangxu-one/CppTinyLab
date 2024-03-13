@@ -1,8 +1,8 @@
 #include "webServer.h"
 
-const char * supportHttpMethod = "GET";
-const char * supportHttpVersion = "HTTP/1.1";
-const char * delimiter = "\r\n";
+const char *supportHttpMethod = "GET";
+const char *supportHttpVersion = "HTTP/1.1";
+const char *delimiter = "\r\n";
 const int maxConnectNums = 1024;
 const int maxBufferNums = 4096;
 const int countTimeInterval = 30;
@@ -18,7 +18,7 @@ int setfd(int fd)
     return old_flag;
 }
 
-void * checkConnect(void * arg)
+void *checkConnect(void *arg)
 {
     double diff;
     time_t curTime, lastActiveTime;
@@ -57,8 +57,8 @@ void * checkConnect(void * arg)
     pthread_exit(NULL);
 }
 
-void * getConnectCount(void * arg)
-{    
+void *getConnectCount(void *arg)
+{
     int epfd = *(int *)arg;
     int count;
     while (1)
@@ -115,16 +115,16 @@ void http_request(int epfd, int cfd)
     // }
 
     // 读取http请求的请求行, 以"\r\n"作为分隔符
-    char * line = strtok(buf, delimiter);
+    char *line = strtok(buf, delimiter);
     std::vector<char *> lines;
-    while (line != NULL) 
+    while (line != NULL)
     {
         lines.push_back(line);
         line = strtok(NULL, delimiter);
     }
 
     // 判断请求行的方法与http协议号是否匹配
-    char * requestLine = lines[0];
+    char *requestLine = lines[0];
     char reqType[16] = {'\0'}, fileName[256] = {'\0'}, protocal[16] = {'\0'};
     sscanf(requestLine, "%[^ ] %[^ ] %[^\\0]", reqType, fileName, protocal);
     if (strcmp(reqType, supportHttpMethod) != 0 || strcmp(protocal, supportHttpVersion) != 0)
@@ -188,7 +188,7 @@ void http_request(int epfd, int cfd)
 
             // 获取目录信息, 并每获取10个文件名发送一次
             fileNums = fileNums - 1;
-            while (fileNums >= 0) 
+            while (fileNums >= 0)
             {
                 memset(dirBuf, '\0', sizeof(dirBuf));
                 for (int i = 0; i < 10 && fileNums >= 0; i++)
@@ -212,7 +212,7 @@ void http_request(int epfd, int cfd)
     }
 }
 
-int sendHeader(int epfd, int cfd, const char * code, const char * msg, const char * fileType, int length)
+int sendHeader(int epfd, int cfd, const char *code, const char *msg, const char *fileType, int length)
 {
     char buf[maxBufferNums] = {'\0'};
     sprintf(buf, "%s %s %s\r\n", supportHttpVersion, code, msg);
@@ -226,7 +226,7 @@ int sendHeader(int epfd, int cfd, const char * code, const char * msg, const cha
     return 0;
 }
 
-int sendFile(int epfd, int cfd, const char * fileNmae)
+int sendFile(int epfd, int cfd, const char *fileNmae)
 {
     int fd = open(fileNmae, O_RDONLY);
     if (fd < 0)
@@ -253,10 +253,10 @@ int sendFile(int epfd, int cfd, const char * fileNmae)
     return 0;
 }
 
-const char * get_mime_type(const char * name)
+const char *get_mime_type(const char *name)
 {
-    //自右向左查找‘.’字符;如不存在返回NULL
-    const char * dot = strrchr(name, '.');
+    // 自右向左查找‘.’字符;如不存在返回NULL
+    const char *dot = strrchr(name, '.');
     /*
      *charset=iso-8859-1	西欧的编码, 说明网站采用的编码是英文；
      *charset=gb2312		说明网站采用的编码是简体中文；
@@ -268,7 +268,7 @@ const char * get_mime_type(const char * name)
      *以下是依据传递进来的文件名, 使用后缀判断是何种文件类型
      *将对应的文件类型按照http定义的关键字发送回去
      */
-    if (dot == (char*)0)
+    if (dot == (char *)0)
         return "text/plain; charset=utf-8";
     if (strcmp(dot, ".html") == 0 || strcmp(dot, ".htm") == 0)
         return "text/html; charset=utf-8";
@@ -282,7 +282,7 @@ const char * get_mime_type(const char * name)
         return "text/css";
     if (strcmp(dot, ".au") == 0)
         return "audio/basic";
-    if (strcmp( dot, ".wav") == 0)
+    if (strcmp(dot, ".wav") == 0)
         return "audio/wav";
     if (strcmp(dot, ".avi") == 0)
         return "video/x-msvideo";
@@ -322,7 +322,7 @@ unsigned short hextod(unsigned short hexNums)
     return num;
 }
 
-void strdecode(char * to, char * from)
+void strdecode(char *to, char *from)
 {
     int len = strlen(from);
     for (; *from != '\0';)

@@ -1,6 +1,6 @@
 #include "webServer.h"
 
-int main(int argc, char * argv[])
+int main(int argc, char *argv[])
 {
     struct sigaction act;
     act.sa_handler = SIG_IGN;
@@ -17,7 +17,7 @@ int main(int argc, char * argv[])
     strcat(path, "/../webpath");
     chdir(path);
 
-    char * ip = argv[1];
+    char *ip = argv[1];
     int port = atoi(argv[2]);
 
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);

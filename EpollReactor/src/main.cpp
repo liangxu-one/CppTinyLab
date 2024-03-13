@@ -1,8 +1,8 @@
 #include "myEvents.h"
 
-int main(int argc, char * argv[])
+int main(int argc, char *argv[])
 {
-    char * ip = argv[1];
+    char *ip = argv[1];
     int port = atoi(argv[2]);
 
     // 创建监听sockfd
@@ -42,7 +42,7 @@ int main(int argc, char * argv[])
 
     // 创建sockfd节点并上树, 对sockfd监听读事件, 当有事件发生时, 调用其回调函数initAccept
     struct epoll_event ep_event;
-    myEvent * p_myEvent = new myEvent(sockfd, initAccept);
+    myEvent *p_myEvent = new myEvent(sockfd, initAccept);
     ep_event.events = EPOLLIN;
     ep_event.data.ptr = p_myEvent;
     ret = epoll_ctl(epfd, EPOLL_CTL_ADD, sockfd, &ep_event);
@@ -52,8 +52,8 @@ int main(int argc, char * argv[])
         return 0;
     }
 
-    //循环等待事件触发
-    myEvent * tempMyevent;
+    // 循环等待事件触发
+    myEvent *tempMyevent;
     struct epoll_event ep_events[maxConnectNums];
     int nready;
     while (1)

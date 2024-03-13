@@ -19,14 +19,14 @@ class myEvent
 public:
     int n;
     int fd;
-    char * buf;
+    char *buf;
 
-    void (*function)(int epfd, int fd, void * arg);
-    myEvent(int fd = 0, void (*function)(int epfd, int fd, void * arg) = nullptr);
+    void (*function)(int epfd, int fd, void *arg);
+    myEvent(int fd = 0, void (*function)(int epfd, int fd, void *arg) = nullptr);
     ~myEvent();
 };
 
 // 回调函数
-void initAccept(int epfd, int fd, void * arg);
-void readData(int epfd, int fd, void * arg);
-void writrData(int epfd, int fd, void * arg);
+void initAccept(int epfd, int fd, void *arg);
+void readData(int epfd, int fd, void *arg);
+void writrData(int epfd, int fd, void *arg);

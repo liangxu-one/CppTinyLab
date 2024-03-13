@@ -25,16 +25,16 @@ void ThreadPool::destoryThreadPool()
     {
         sem_post(&this->full_sem);
     }
-    delete [] this->p_th;
+    delete[] this->p_th;
     sem_destroy(&this->empty_sem);
     sem_destroy(&this->full_sem);
     pthread_mutex_destroy(&this->mutex);
 }
 
-void * threadProcess(void * arg)
+void *threadProcess(void *arg)
 {
     myTask task;
-    ThreadPool * p_threadPool = (ThreadPool *)arg;
+    ThreadPool *p_threadPool = (ThreadPool *)arg;
     while (!p_threadPool->shufdown)
     {
         sem_wait(&p_threadPool->full_sem);
@@ -54,7 +54,7 @@ void * threadProcess(void * arg)
     pthread_exit(NULL);
 }
 
-void addTask(ThreadPool * p_threadPool, myTask task)
+void addTask(ThreadPool *p_threadPool, myTask task)
 {
     if (!p_threadPool->shufdown)
     {
@@ -71,7 +71,7 @@ void addTask(ThreadPool * p_threadPool, myTask task)
     }
 }
 
-void * fun(void * arg)
+void *fun(void *arg)
 {
     printf("This is a fun, it is execute by %ld thread\n", pthread_self());
     sleep(1);
