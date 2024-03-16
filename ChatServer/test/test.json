@@ -1,0 +1,14 @@
+{"msgid":3, "name":"zhangsan", "password":"123456"}
+{"msgid":3, "name":"李四", "password":"123456"}
+{"msgid":1, "id":1, "password":"123456"}
+{"msgid":1, "id":2, "password":"123456"}
+{"msgid":6, "id":1, "from":"zhangsan", "to":2, "msg":"hello"}
+{"msgid":6, "id":1, "from":"zhangsan", "to":2, "msg":"在吗"}
+{"msgid":6, "id":2, "from":"李四", "to":1, "msg":"挺好的"}
+{"msgid":7, "id":1, "friendid":2}
+{"msgid":8, "id":1, "groupname":"第一个群", "desc":"无描述"}
+{"msgid":9, "id":2, "groupid":1}
+{"msgid":10, "id":1, "groupid":1, "msg":"大家好"}
+{"msgid":10, "id":2, "groupid":1, "msg":"我在"}
+{"msgid":2, "id":1}
+{"msgid":2, "id":2}
